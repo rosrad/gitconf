@@ -1,0 +1,77 @@
+[user]
+	email = youremail
+	name = yourname
+[alias]
+    st = status
+    sd = diff --diff-filter=D --name-only
+    dd = "! f() { git sd |xargs git rm ; } ; f"
+    ci = commit -v
+    rt = remote
+    cm = commit -m
+    cam = commit -a -m
+    caa = commit -a --amend -C HEAD
+    path = ls-tree --full-name --name-only HEAD 
+    bl = blame 
+    df = "! f() { rev=${1-$(git rev-parse HEAD)}; git difftool ${rev} ${@:2} ; } ; f"
+    ndf = "! git df --numstat"
+    dfc = "! f() { rev=${1-$(git rev-parse HEAD)}; git difftool ${rev}^..${rev} ${@:2};} ; f"
+    ndfc = "! f() { rev=${1-$(git rev-parse HEAD)}; git difftool ${rev}^..${rev} --numstat ${@:2};} ; f"
+    br = branch
+    co = checkout
+    cod = "! f() { rev=${1-$(git rev-parse HEAD)}; git diff --name-only ${rev}^..${rev} ${@:2} |xargs -I{} git co ${rev} -- {} ; } ; f "
+    hist = "log --pretty=format:\"%Cred%h%Creset % | %s%Cgreen%d%Creset %C(bold blue)[%an]\" --graph --date=short -n 10"
+    ls = "log --graph --pretty=format:'%Cred%h%Creset |%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -n10"
+    ll = "!git ls --numstat -5"
+    log-df = "! f() { rev=${2-$(git rev-parse HEAD)}; git ls ${rev}~$1..${rev} ${@:2} ;}; f"
+    log-diff = "! f() { rev=${2-$(git rev-parse HEAD)}; git ll ${rev}~$1..${rev} ${@:2} ;}; f"
+    ld = "! git log-diff 1 "
+    ld1 = "! git log-diff 2 "
+    ld2 = "! git log-diff 3 "
+    ld3 = "! git log-diff 4 "
+    l0= "!git ll -1"
+    l1= "!git ll -2"
+    l2= "!git ll -3"
+    l3= "!git ll -4"
+    rh = reset --hard
+    rs  = reset --soft
+    r = reset --mixed 
+    cp = cherry-pick
+    cr = cherry
+    
+    cy = "!git ls --cherry-pick --left-right"
+    cyl = "!git ls --cherry-pick --left-only"
+    cyr = "!git ls --cherry-pick --right-only"
+    cyvl = "!git rev-list --cherry-pick --left-only"
+    cyvr = "!git rev-list --cherry-pick --right-only"
+    
+    mg = merge    
+    cdn = clean -dn
+    cdf = clean -df
+[push]
+	default = current
+[pull]
+	default = current
+[core]
+	excludesfile = ~/.bash/.gitignore
+	autocrlf = true
+[branch]
+	autosetupmerge = always
+	autosetuprebase = always
+[diff]
+        tool = bc4
+        guitool = bc4
+[difftool]
+prompt = false
+[difftool "bc4"]
+        cmd = ~/.bash/ediff.sh $LOCAL $REMOTE
+        cmd = "\"c:/program files/beyond compare 4/bcomp.exe\" \"$LOCAL\" \"$REMOTE\""
+
+[merge]
+        tool = bc4
+[mergetool]
+prompt = false
+[mergetool "bc4"]
+        cmd = "\"c:/program files/beyond compare 4/bcomp.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" "$MERGED\"
+        trustExitCode = true
+[winUpdater]
+	recentlySeenVersion = 2.17.0.windows.1
